@@ -1,13 +1,22 @@
 import axios from "axios";
 import { useState } from "react";
 import "./styles.css";
-import { Todo } from "./Todo.tsx";
+import { Todo } from "./Todo";
+import { TodoType } from "./types/Todo";
+import { Text } from "./Text";
+import { UserPropfile } from "./UserPropfile";
+import { User } from "./types/User";
 
 type TodoType = {
   userId: number;
   id: number;
   title: string;
   completed: boolean;
+};
+
+const user: User = {
+  name: "syota",
+  hobbies: ["野球", "読書"]
 };
 
 export default function App() {
@@ -24,9 +33,16 @@ export default function App() {
 
   return (
     <div className="App">
+      <UserPropfile user={user} />
+      <Text color={"red"} fontSize={"18px"} />
       <button onClick={onclickFetchData}>データ取得</button>
       {todos.map((todo) => (
-        <Todo title={todo.title} userid={todo.userId} />
+        <Todo
+          key={todo.id}
+          title={todo.title}
+          userId={todo.userId}
+          completed={todo.completed}
+        />
       ))}
     </div>
   );
